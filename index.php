@@ -54,14 +54,16 @@ $baseProtectedPath = '/services/'; // Si cambia, puedes separarlos
 
 // Mapa de rutas públicas (sin repetir la base)
 $publicRoutes = [
-    "login" => "login.php",
-    "general" => "general.php",
-    "products/get" => "products/getProduct.php"
+    "login"                 => "login.php",
+    "general"               => "general.php",
+    "register"              => "user/createUser.php",
+    "products/get"          => "products/getProduct.php",
+    "contact/createContact" => "contact/createContact.php"
 ];
 
 // Mapa de rutas protegidas
 $protectedRoutes = [
-    //"finance/create" => "finance/create.php",
+    "order/createOrder" => "order/createOrder.php",
     //"user/update" => "user/update.php"
 ];
 

@@ -43,5 +43,20 @@ class DataProvider {
     public static function getDataProducts() {
         return self::getJsonInput(['type']);
     }
+
+    public static function getCreateUser() {
+        return self::getJsonInput(["first_name", "middle_name", "first_surname", "second_surname",
+        "id_document", "document_number", "age", "phone", "address",
+        "email", "password", "status", "id_role"]);
+    }
+
+    public static function getCreateContact() {
+        return self::getJsonInput(["name", "phone", "preferred_time"]);
+    }
+
+    public static function getCreateOrder() {
+        return self::getJsonInput(['user_id','items', 'total']);
+    }
+
 }
 ?>

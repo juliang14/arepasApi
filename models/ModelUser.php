@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/passwordManager.php';
 
 class ModelUser {
     private $conn;
@@ -40,6 +41,46 @@ class ModelUser {
             }
     
             return $finances;
+        } catch (Exception $e) {
+            return ["error" => $e->getMessage()];
+        }
+    }
+
+    public function createUser($data) {
+        $passwordManager = new PasswordManager();
+        $clave = $passwordManager->hashPassword($data['password']);
+        try {
+            $stmt = $this->conn->prepare("
+                CALL PR_CREATE_USER(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ");
+
+            $stmt->bind_param(
+                "ssssisiissssi",
+                $data["first_name"],
+                $data["middle_name"],
+                $data["first_surname"],
+                $data["second_surname"],
+                $data["id_document"],
+                $data["document_number"],
+                $data["age"],
+                $data["phone"],
+                $data["address"],
+                $data["email"],
+                $clave,
+                $data["status"],
+                $data["id_role"]
+            );
+
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result) {
+                $row = $result->fetch_assoc();
+                return ["user_id" => $row["NEW_USER_ID"]];
+            } else {
+                return ["error" => "No result returned"];
+            }
+
         } catch (Exception $e) {
             return ["error" => $e->getMessage()];
         }
