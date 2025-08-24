@@ -61,15 +61,16 @@ class ModelOrder {
 
             // Convertir total a entero (sin decimales)
             $totalAmount = (int) round($totalAmount);
+            $paypal = $this->getPayPalClientId();
 
             return [
                 'success' => true,
                 'message' => 'Order created successfully',
                 'data' => [
+                    'paypal' => $paypal,
                     'order_id' => $orderId,
                     'total'    => $totalAmount
-                ],
-                'paypal' => $this->getPayPalClientId()
+                ]
             ];
 
         } catch (mysqli_sql_exception $e) {
