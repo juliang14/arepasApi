@@ -38,9 +38,9 @@ $expTime = time() + (TOKEN_EXPIRACION_MINUTOS * 60);
 // 🔹 Crear el token JWT
 $payload = [
     "id" => $user["ID"],
-    //"name" => $user["NAME"],
-    //"email" => $user["EMAIL"],
-    //"role" => $user["ROLE"],
+    "name" => $user["NAME"],
+    "email" => $user["EMAIL"],
+    "role" => $user["ROLE"],
     "iat" => time(),  // Tiempo de emisión
     "exp" => $expTime // Expiración fija de 1 hora
 ];
@@ -52,9 +52,9 @@ sendResponse(200, true, "Login exitoso", [
     "token" => $jwt,
     "expiracion" => $expTime, // Enviar el tiempo de expiración al frontend
     "user" => [
-        "id" => $user["ID"]/*,
+        "id" => $user["ID"],
         "name" => $user["NAME"],
         "email" => $user["EMAIL"],
-        "role" => $user["ROLE"]*/
+        "role" => $user["ROLE"]
     ]
 ]);
