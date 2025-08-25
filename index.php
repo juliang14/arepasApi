@@ -64,7 +64,8 @@ $publicRoutes = [
 // Mapa de rutas protegidas
 $protectedRoutes = [
     "order/createOrder" => "order/createOrder.php",
-    //"user/update" => "user/update.php"
+    "order/getOrders" => "order/getOrders.php",
+    "order/updateOrderStatus" => "order/updateOrderPaypal.php",
 ];
 
 if (array_key_exists($requestUri, $protectedRoutes)) {

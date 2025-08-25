@@ -58,5 +58,23 @@ class DataProvider {
         return self::getJsonInput(['user_id','items', 'total']);
     }
 
+    public static function getOrders() {
+        $input = json_decode(file_get_contents("php://input"), true);
+
+        if (!is_array($input)) {
+            sendResponse(400, false, "JSON inválido.");
+        }
+
+        // Retornar solo los campos si existen
+        return [
+            'id_order' => isset($input['id_order']) ? intval($input['id_order']) : null,
+            'id_user'  => isset($input['id_user']) ? intval($input['id_user']) : null
+        ];
+    }
+
+    public static function getPaypalOrderData() {
+        return self::getJsonInput(['id_order','paypal_order_id']);
+    }
+
 }
 ?>
